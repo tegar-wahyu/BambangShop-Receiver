@@ -62,11 +62,11 @@ You can install Postman via this website: https://www.postman.com/downloads/
 -   [x] Clone https://gitlab.com/ichlaffterlalu/bambangshop-receiver to a new repository.
 -   **STAGE 1: Implement models and repositories**
     -   [x] Commit: `Create Notification model struct.`
-    -   [ ] Commit: `Create SubscriberRequest model struct.`
-    -   [ ] Commit: `Create Notification database and Notification repository struct skeleton.`
-    -   [ ] Commit: `Implement add function in Notification repository.`
-    -   [ ] Commit: `Implement list_all_as_string function in Notification repository.`
-    -   [ ] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
+    -   [x] Commit: `Create SubscriberRequest model struct.`
+    -   [x] Commit: `Create Notification database and Notification repository struct skeleton.`
+    -   [x] Commit: `Implement add function in Notification repository.`
+    -   [x] Commit: `Implement list_all_as_string function in Notification repository.`
+    -   [x] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
 -   **STAGE 3: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
@@ -85,5 +85,16 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
+1. *In this tutorial, we used RwLock<> to synchronise the use of Vec of Notifications. Explain why it is necessary for this case, and explain why we do not use Mutex<> instead?*
+
+	>`RwLock<>` (Read-Write Lock) memungkinkan banyak reader atau satu writer pada satu waktu tertentu. `RwLock<>` memberikan lebih banyak fleksibilitas daripada `Mutex<>` yang hanya memungkinkan satu thread untuk mengakses data pada satu waktu, baik untuk read atau write. Penggunaan `Mutex<>` dapat menyebabkan delay yang tidak perlu dalam skenario di mana read lebih sering terjadi daripada write, karena bahkan pembaca harus menunggu pembaca lain selesai.
+
+	>Dalam kasus Notification, terdapat skenario yang memungkinkan beberapa thread yang ingin melakukan read notifikasi dan hanya sesekali write (misalnya, saat notifikasi baru dibuat), sehingga penggunaan `RwLock<>` dapat memberikan kinerja yang lebih baik daripada `Mutex<>`.
+
+2. *In this tutorial, we used lazy_static external library to define Vec and DashMap as a “static” variable. Compared to Java where we can mutate the content of a static variable via a static function, why did not Rust allow us to do so?*
+
+	>Menurut pemahaman Saya dari sumber yang saya baca, static variable dalam Rust diimplementasikan menggunakan lazy static untuk memastikan program sudah thread-safe. Lazy static memungkinkan inisialisasi static variable dilakukan hanya saat pertama kali diakses, berbeda dengan definisi static variable tradisional yang diinisialisasi saat program dimulai.
+
+	>Pendekatan ini membawa beberapa keuntungan. Pertama, lazy static menjamin static variable bersifat thread-safe karena proses inisialisasi terlindungi secara otomatis, menghindari masalah race condition. Kedua, static variable hanya diinisialisasi saat diperlukan, menghemat sumber daya. Dengan mekanisme lazy static, Rust dapat memastikan static variable aman digunakan dalam multithreaded environment.
 
 #### Reflection Subscriber-2
