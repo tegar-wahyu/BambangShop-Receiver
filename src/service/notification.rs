@@ -84,5 +84,10 @@ impl NotificationService {
                 Status::NotFound, 
                 e.to_string()))
         }
+    }
+
+    pub fn receive_notification(payload: Notification) -> Result<Notification> {
+        let subscriber_result: Notification = NotificationRepository::add(payload);
+        return Ok(subscriber_result);
     }    
 }
