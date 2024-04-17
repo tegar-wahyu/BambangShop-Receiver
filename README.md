@@ -98,3 +98,17 @@ This is the place for you to write reflections:
 	>Pendekatan ini membawa beberapa keuntungan. Pertama, lazy static menjamin static variable bersifat thread-safe karena proses inisialisasi terlindungi secara otomatis, menghindari masalah race condition. Kedua, static variable hanya diinisialisasi saat diperlukan, menghemat sumber daya. Dengan mekanisme lazy static, Rust dapat memastikan static variable aman digunakan dalam multithreaded environment.
 
 #### Reflection Subscriber-2
+
+1. *Have you explored things outside of the steps in the tutorial, for example: src/lib.rs? If not, explain why you did not do so. If yes, explain things that you have learned from those other parts of code.*
+
+    >Setelah mengeksplorasi kode di luar langkah-langkah tutorial, saya menemukan beberapa hal menarik dalam file `src/lib.rs` seperti penggunaan `lazy_static` untuk menginisialisasi static variable, yang menjamin keamanan threading. Struct `AppConfig` digunakan untuk mengelola konfigurasi aplikasi yang dapat diatur melalui file `.env`. Selain itu, terdapat struct `ErrorResponse` dan fungsi `compose_error_response` untuk menangani dan merepresentasikan error dalam aplikasi.
+
+2. *Since you have completed the tutorial by now and have tried to test your notification system by spawning multiple instances of Receiver, explain how Observer pattern eases you to plug in more subscribers. How about spawning more than one instance of Main app, will it still be easy enough to add to the system?*
+
+    >Saat mencoba menjalankan multiple instances of Receiver untuk menguji sistem Notification, saya menjadi paham Observer Pattern dapat memudahkan penambahan subscriber baru. Setiap instance Main app me-maintain daftarnya sendiri untuk para observer. Jadi, saat terjadi perubahan state dalam suatu instance, dia hanya akan memberi tahu observernya sendiri, tanpa melibatkan observer dari instance lain.
+
+3. *Have you tried to make your own Tests, or enhance documentation on your Postman collection? If you have tried those features, tell us whether it is useful for your work (it can be your tutorial work or your Group Project).*
+
+    >Saya belum mencoba membuat tes sendiri atau meningkatkan dokumentasi pada Postman collection. Namun, saya telah mencoba beberapa fitur dan memahami manfaatnya.
+
+    >Setelah mencoba menggunakan Postman pada proyek ini, saya merasa bahwa Postman merupakan alat yang sangat berguna untuk melakukan API testing. Postman membantu saya untuk mengirimkan request HTTP ke server dan memeriksa respons yang dikembalikan, sangat berguna untuk proses debugging dan memastikan fungsionalitas endpoint.
